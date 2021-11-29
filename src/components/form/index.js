@@ -13,7 +13,7 @@ function Form(props) {
 
     const formData = {
       url: requestUrl,
-      // body: JSON.parse(requestData),
+      body: JSON.parse(requestData),
     }
 
     props.handleApiCall(formData);
@@ -30,13 +30,13 @@ function Form(props) {
         <label>
           <span>URL: </span>
           <input onChange={(e) => setRequestUrl(e.target.value)} name='url' type='text' />
-          <button onClick={handleClick} type='submit'>GO!</button>
+          <button type="submit">GO!</button>
         </label>
-        <label>
-          <button type='button' onClick={handleClick} id='get'> GET </button>
-          <button type='button' onClick={handleClick} id='post'> POST </button>
-          <button type='button' onClick={handleClick} id='put'> PUT </button>
-          <button type='button' onClick={handleClick} id='delete'> DELETE </button>
+        <label className="methods" >
+          <button type='button' onClick={handleClick} id='get' value='GET'> GET </button>
+          <button type='button' onClick={handleClick} id='post' value='POST'> POST </button>
+          <button type='button' onClick={handleClick} id='put' value='PUT'> PUT </button>
+          <button type='button' onClick={handleClick} id='delete' value='DELETE'> DELETE </button>
         </label>
         <textarea onChange={(e) => setRequestData(e.target.value)} name='json' />
       </form>
