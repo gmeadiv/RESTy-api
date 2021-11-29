@@ -9,18 +9,12 @@ import Results from './components/results';
 
 function App() {
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     data: null,
-  //     requestParams: {}
-  //   }
-  // }
-
   const [data, setData] = useState(null);
   const [requestParams, setRequestParams] = useState({});
 
-  const callApi = (reqParams) => {
+  const callApi = (formParams) => {
+
+    console.log(formParams, '<-- FORM PARAMS --<<')
 
     const data = {
       count: 2,
@@ -31,7 +25,7 @@ function App() {
     }
 
     setData(data);
-    setRequestParams(requestParams, reqParams);
+    setRequestParams(requestParams, formParams);
   }
 
     return (
@@ -43,7 +37,7 @@ function App() {
         handleApiCall={callApi} 
         setRequestParams={setRequestParams}
         requestParams={requestParams} />
-        <Results data={data} />
+        {data ? <Results data={data} /> : <p>loading</p>}
         <Footer />
       </>
     )
