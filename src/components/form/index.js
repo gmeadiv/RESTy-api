@@ -1,19 +1,20 @@
-import React from "react";
-
 import './form.scss';
 
-const Form = () => {
+function Form(props) {
 
-  let handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
     const formData = {
-      method: 'GET',
       url: 'https://pokeapi.co/api/v2/pokemon'
     }
 
-    callApi(formData);
+    props.handleApiCall(formData);
   }
 
+  const handleClick= (e) => {
+    let {value} = e.target;
+    props.setRequestParams({...props.requestParams, method: value});
+  }
 
   return (
     <>
@@ -21,18 +22,17 @@ const Form = () => {
         <label>
           <span>URL: </span>
           <input name='url' type='text' />
-          <button type='submit'>GO!</button>
+          <button onClick={handleClick} type='submit'>GO!</button>
         </label>
         <label>
-          <button id='get'> GET </button>
-          <button id='post'> POST </button>
-          <button id='put'> PUT </button>
-          <button id='delete'> DELETE </button>
+          <button onClick={handleClick} id='get'> GET </button>
+          <button onClick={handleClick} id='post'> POST </button>
+          <button onClick={handleClick} id='put'> PUT </button>
+          <button onClick={handleClick} id='delete'> DELETE </button>
         </label>
       </form>
     </>
-  )
-
+  );
 }
 
 export default Form;
