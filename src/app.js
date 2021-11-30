@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 import './app.scss';
 
@@ -7,17 +7,12 @@ import Footer from './components/footer';
 import Form from './components/form';
 import Results from './components/results';
 
-class App extends React.Component {
+function App() {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-      requestParams: {}
-    }
-  }
+  const [data, setData] = useState(null);
+  const [requestParams, setRequestParams] = useState({});
 
-  callApi = (requestParams) => {
+  const callApi = (formParams) => {
 
     const data = {
       count: 2,
@@ -27,21 +22,25 @@ class App extends React.Component {
       ]
     }
 
-    this.setState({data, requestParams})
+    setData(data);
+    setRequestParams({...requestParams, ...formParams});
   }
 
-  render() {
+  console.log(requestParams, '<-- REQUEST PARAMS --<<')
+
     return (
-      <React.Fragment>
+      <>
         <Header />
-        <div>Request Method: {this.state.requestParams.method} </div>
-        <div>URL: {this.state.requestParams.url} </div>
-        <Form handleApiCall={this.callApi} />
-        <Results data={this.state.data} />
+        <div>Request Method: {requestParams.method} </div>
+        <div>URL: {requestParams.url} </div>
+        <Form 
+        handleApiCall={callApi} 
+        setRequestParams={setRequestParams}
+        requestParams={requestParams} />
+        {data ? <Results data={data} /> : <p>loading</p>}
         <Footer />
-      </React.Fragment>
+      </>
     )
-  }
 }
 
 export default App;
