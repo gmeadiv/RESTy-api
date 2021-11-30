@@ -14,8 +14,6 @@ function App() {
 
   const callApi = (formParams) => {
 
-    console.log(formParams, '<-- FORM PARAMS --<<')
-
     const data = {
       count: 2,
       results: [
@@ -25,8 +23,10 @@ function App() {
     }
 
     setData(data);
-    setRequestParams(requestParams, formParams);
+    setRequestParams({...requestParams, ...formParams});
   }
+
+  console.log(requestParams, '<-- REQUEST PARAMS --<<')
 
     return (
       <>

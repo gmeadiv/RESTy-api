@@ -9,12 +9,12 @@ function Form(props) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    console.log(requestData, '<-- REQUEST DATA --<<')
-
     const formData = {
       url: requestUrl,
       body: JSON.parse(requestData),
     }
+
+    console.log(formData, '<-- FORM DATA --<<')
 
     props.handleApiCall(formData);
   }
