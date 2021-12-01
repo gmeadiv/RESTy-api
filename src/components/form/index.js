@@ -9,14 +9,18 @@ function Form(props) {
   const handleSubmit = e => {
     e.preventDefault();
 
+    console.log(requestData, '<-- REQUEST DATA --<<')
+
+
     const formData = {
       url: requestUrl,
       body: JSON.parse(requestData),
     }
 
-    console.log(formData, '<-- FORM DATA --<<')
+    const pokemon = {pokemon: e.target.value}
 
-    props.handleApiCall(formData);
+    props.callApi(formData);
+    props.setPokemon(pokemon)
   }
 
   const handleClick= (e) => {
