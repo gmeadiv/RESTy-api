@@ -10,32 +10,39 @@ import Results from './components/results';
 function App() {
 
   const [pokemon, setPokemon] = useState([]);
-  const [results, setResults] = useState({});
-  const [loading, setLoading] = useState(false);
+
+  const [data, setData] = useState(null);
+  const [requestParams, setRequestParams] = useState({});
+
+  const callApi = (formData) => {
+    setRequestParams({ ...requestParams, ...formData })
+  }
 
   useEffect(() => {
-    setLoading(true);
-    axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+
+    axios.get(`${requestParams.url}`)
       .then(response => {
-        setLoading(false);
-        setResults(response.data);
+        setData(response.data);
       }).catch(e => {
         console.log(e, '<-- use effect error --<<')
-        setLoading(false);
       })
+
   }, [pokemon])
 
-    return (
-      <>
-        <Header />
-        <div>Request Method: {results.method} </div>
-        <div>URL: {results.url} </div>
-        <Form 
-        setPokemon={setPokemon} />
-        {loading ? <p>loading</p> : <Results results={results} /> }
-        <Footer />
-      </>
-    )
+  return (
+    <>
+      <Header />
+      <div>Request Method: {requestParams.method} </div>
+      <div>URL: {requestParams.url} </div>
+      <Form
+        callApi={callApi}
+        setPokemon={setPokemon}
+        setRequestParams={setRequestParams}
+        requestParams={requestParams} />
+      {data ? <Results data={data} /> : <p>loading</p>}
+      <Footer />
+    </>
+  )
 }
 
 export default App;
